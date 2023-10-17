@@ -27,6 +27,15 @@ public class DatosEmpleados {
 
             );
 
+    public final static Empleado  empleadoGuardar =
+            Empleado.builder()
+                    .id(UUID.randomUUID())
+                    .nombre("Dayni")
+                    .apellido("Quispe")
+                    .email("dd@gmail.com")
+                    .dni("23456789")
+                    .build();
+
     public final static Empleado empleado =
             Empleado.builder()
                     .id(UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454"))

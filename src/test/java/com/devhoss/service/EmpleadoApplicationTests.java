@@ -1,5 +1,6 @@
-package com.devhoss;
+package com.devhoss.service;
 
+import com.devhoss.DatosEmpleados;
 import com.devhoss.exception.ResourceNotFoundException;
 import com.devhoss.model.Empleado;
 import com.devhoss.repository.IEmpleadoRepository;
