@@ -134,5 +134,23 @@ class EmpleadoApplicationTests {
 	}
 
 
+	@DisplayName("Test para actualizar un empleado")
+	@Test
+	void testActualizarEmpleado(){
+		//given
+		given(iEmpleadoRepository.save(empleado)).willReturn(empleado);
+		empleado.setEmail("juancho@gmail.com");
+		empleado.setNombre("Juancho");
+
+		//when
+		Empleado empleadoActualizado  = empleadoServiceImpl.updateEmpleado(empleado);
+
+		//then
+		assertThat(empleadoActualizado.getEmail()).isEqualTo("juancho@gmail.com");
+		assertThat(empleadoActualizado.getNombre()).isEqualTo("Juancho");
+		assertThat(empleadoActualizado.getDni()).isEqualTo("12345678");
+
+		verify(iEmpleadoRepository).save(any(Empleado.class));
+	}
 
 }

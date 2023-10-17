@@ -34,4 +34,20 @@ public class EmpleadoController {
     public Empleado guardarEmpleado(@RequestBody Empleado empleado){
         return iempleadoService.saveEmpleado(empleado);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable("id") UUID id, @RequestBody Empleado empleado){
+        return iempleadoService.getEmpleadoById(id)
+                .map(empleadoGuardado -> {
+                    empleadoGuardado.setNombre(empleado.getNombre());
+                    empleadoGuardado.setApellido(empleado.getApellido());
+                    empleadoGuardado.setEmail(empleado.getEmail());
+                    empleadoGuardado.setDni(empleado.getDni());
+
+                    Empleado empleadoActualizado = iempleadoService.updateEmpleado(empleadoGuardado);
+                    return new ResponseEntity<>(empleadoActualizado,HttpStatus.OK);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }

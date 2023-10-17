@@ -12,4 +12,6 @@ public interface IEmpleadoService {
     Optional<Empleado> getEmpleadoById(UUID id);
 
     Empleado saveEmpleado(Empleado empleado);
+
+    Empleado updateEmpleado(Empleado empleado);
 }
