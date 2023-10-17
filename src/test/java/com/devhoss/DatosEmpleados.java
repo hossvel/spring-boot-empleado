@@ -29,7 +29,7 @@ public class DatosEmpleados {
 
     public final static Empleado  empleadoGuardar =
             Empleado.builder()
-                    .id(UUID.randomUUID())
+                    .id(UUID.fromString("018b2f19-e79e-7d6a-a56d-29feb6211b04"))
                     .nombre("Dayni")
                     .apellido("Quispe")
                     .email("dd@gmail.com")
@@ -44,4 +44,6 @@ public class DatosEmpleados {
                     .email("hh@gmail.com")
                     .dni("12345678")
                     .build();
+
+
 }

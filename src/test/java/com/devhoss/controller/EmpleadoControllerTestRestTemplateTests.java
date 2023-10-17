@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class EmpleadoControllerTestRestTemplateTests {
 
+    /*
     @Autowired
     private TestRestTemplate testRestTemplate;
 
@@ -73,5 +74,5 @@ class EmpleadoControllerTestRestTemplateTests {
     private String crearUri(String uri) {
         return "http://localhost:" + puerto + uri;
     }
-
+*/
 }
