@@ -15,7 +15,7 @@ public class DatosEmpleados {
                             .nombre("Hernan")
                             .apellido("Velasco")
                             .email("he@gmail.com")
-                            .dni("13572468")
+                            .dni("24681357")
                             .build(),
                     Empleado.builder()
                             .id(UUID.randomUUID())

@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,6 +72,28 @@ class EmpleadoApplicationTests {
 		assertThat(empleados.size()).isEqualTo(2);
 
 		verify(iEmpleadoRepository).findAll();
+	}
+
+
+	@DisplayName("Test para obtener un empleado por ID")
+	@Test
+	void testObtenerEmpleadoPorId(){
+		//given
+		given(iEmpleadoRepository.findById(UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454")))
+				.willReturn(Optional.of(empleado));
+
+		//when
+		Empleado empleadoBuscado = empleadoServiceImpl.getEmpleadoById(empleado.getId()).get();
+
+		//then
+		assertThat(empleadoBuscado).isNotNull();
+		verify(iEmpleadoRepository).findById(UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454"));
+	}
+
+	@Test
+	void testPreguntasExamenId() {
+
+
 	}
 
 }
