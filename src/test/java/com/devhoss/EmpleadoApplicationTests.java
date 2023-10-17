@@ -3,6 +3,7 @@ package com.devhoss;
 import com.devhoss.model.Empleado;
 import com.devhoss.repository.IEmpleadoRepository;
 import com.devhoss.service.EmpleadoServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,13 +25,19 @@ import static org.mockito.Mockito.verify;
 class EmpleadoApplicationTests {
 
 
+
 	@Mock
 	IEmpleadoRepository iEmpleadoRepository;
 
 	@InjectMocks
 	EmpleadoServiceImpl empleadoServiceImpl;
 
+	private Empleado empleado;
 
+	@BeforeEach
+	void setup(){
+		empleado = DatosEmpleados.empleado;
+	}
 
 	@DisplayName("Test para retornar una lista vacia")
 	@Test
@@ -52,27 +60,17 @@ class EmpleadoApplicationTests {
 	@Test
 	void testListarEmpleados(){
 		//given
-		Empleado empleado1 = Empleado.builder()
-				.id(2L)
-				.nombre("Julen")
-				.apellido("Oliva")
-				.email("j2@gmail.com")
-				.build();
-		Empleado empleado2 = Empleado.builder()
-				.id(2L)
-				.nombre("Hoss")
-				.apellido("velasco")
-				.email("hh@gmail.com")
-				.build();
-		given(iEmpleadoRepository.findAll()).willReturn(List.of(empleado1,empleado2));
+
+		given(iEmpleadoRepository.findAll()).willReturn(DatosEmpleados.listaEmpleados);
 
 		//when
-		List<Empleado> fraudes = empleadoServiceImpl.getAllEmpleados();
+		List<Empleado> empleados = empleadoServiceImpl.getAllEmpleados();
 
 		//then
-		assertThat(fraudes).isNotNull();
-		assertThat(fraudes.size()).isEqualTo(2);
+		assertThat(empleados).isNotNull();
+		assertThat(empleados.size()).isEqualTo(2);
 
 		verify(iEmpleadoRepository).findAll();
 	}
+
 }

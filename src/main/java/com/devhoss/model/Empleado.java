@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Data
 @Builder
@@ -15,9 +18,13 @@ import lombok.NoArgsConstructor;
 public class Empleado {
 
 
+   // @Id
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // private Long id;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(name = "nombre",nullable = false)
     private String nombre;
@@ -28,4 +35,6 @@ public class Empleado {
     @Column(name = "email",nullable = false)
     private String email;
 
+    @Column(name = "dni",nullable = false)
+    private String dni;
 }
