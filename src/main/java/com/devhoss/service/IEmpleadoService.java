@@ -14,4 +14,6 @@ public interface IEmpleadoService {
     Empleado saveEmpleado(Empleado empleado);
 
     Empleado updateEmpleado(Empleado empleado);
+
+    void deleteEmpleado(UUID id);
 }

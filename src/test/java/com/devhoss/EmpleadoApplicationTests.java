@@ -21,6 +21,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.verify;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -151,6 +152,20 @@ class EmpleadoApplicationTests {
 		assertThat(empleadoActualizado.getDni()).isEqualTo("12345678");
 
 		verify(iEmpleadoRepository).save(any(Empleado.class));
+	}
+
+	@DisplayName("Test para eliminar un empleado")
+	@Test
+	void testEliminarEmpleado(){
+		//given
+		UUID empleadoId = UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454");
+		willDoNothing().given(iEmpleadoRepository).deleteById(empleadoId);
+
+		//when
+		empleadoServiceImpl.deleteEmpleado(empleadoId);
+
+		//then
+		verify(iEmpleadoRepository,times(1)).deleteById(empleadoId);
 	}
 
 }

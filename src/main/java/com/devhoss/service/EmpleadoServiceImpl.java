@@ -38,4 +38,9 @@ public class EmpleadoServiceImpl implements IEmpleadoService{
     public Empleado updateEmpleado(Empleado empleado) {
         return iempleadoRepository.save(empleado);
     }
+
+    @Override
+    public void deleteEmpleado(UUID id) {
+        iempleadoRepository.deleteById(id);
+    }
 }

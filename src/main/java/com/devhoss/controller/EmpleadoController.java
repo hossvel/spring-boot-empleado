@@ -50,4 +50,10 @@ public class EmpleadoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarEmpleado(@PathVariable("id") UUID id){
+        iempleadoService.deleteEmpleado(id);
+        return new ResponseEntity<String>("Empleado eliminado exitosamente",HttpStatus.OK);
+    }
+
 }
