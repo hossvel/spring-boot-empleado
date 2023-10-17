@@ -10,4 +10,6 @@ public interface IEmpleadoService {
 
     List<Empleado> getAllEmpleados();
     Optional<Empleado> getEmpleadoById(UUID id);
+
+    Empleado saveEmpleado(Empleado empleado);
 }
