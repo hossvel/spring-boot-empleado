@@ -23,6 +23,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                sh "sudo chmod -R 777 '${workspace}'"
                 sh './jenkins/scripts/deliver.sh'
             }
         }
