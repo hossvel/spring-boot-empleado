@@ -1,4 +1,4 @@
-job('JavaMavenAppDSL2') {
+job('JavaMavenAppDSL3') {
     description('Java Maven App con DSL para el curso de Jenkins')
     scm {
         git('https://github.com/hossvel/spring-boot-empleado.git', 'main') { node ->
@@ -20,7 +20,7 @@ job('JavaMavenAppDSL2') {
         }
         shell('''
           echo "****Entrega: Desplegando jar la aplicación empleados********" 
-          # java -jar "/var/jenkins_home/workspace/JavaMavenAppDSL2/target/spring-boot-empleado-0.0.1-SNAPSHOT.jar"
+          # java -jar "/var/jenkins_home/workspace/JavaMavenAppDSL3/target/spring-boot-empleado-0.0.1-SNAPSHOT.jar"
         ''')
     }
     publishers {
