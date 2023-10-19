@@ -1,4 +1,4 @@
-job('JavaMavenAppDSL') {
+job('JavaMavenAppDSL2') {
     description('Java Maven App con DSL para el curso de Jenkins')
     scm {
         git('https://github.com/hossvel/spring-boot-empleado.git', 'main') { node ->
