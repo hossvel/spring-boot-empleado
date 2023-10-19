@@ -45,3 +45,20 @@ job('JavaMavenAppDSL3') {
         }
     }
 }
+job('Job test Hola Mundo') {
+    description('Aplicacion Hola Mundo de Prueba')
+    scm {
+        git('https://github.com/hossvel/spring-boot-empleado.git', 'main') { node ->
+            node / gitConfigName('hhvelascoa')
+            node / gitConfigEmail('hhvelascoa@gmail.com')
+        }
+    }
+    triggers {
+        githubPush()
+    }
+    steps {
+        shell('''
+			echo "Hola Mundo!!!!"
+		''')
+    }
+}
