@@ -23,6 +23,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                 sh '''
+                echo "Pasos múltiples de shell también funcionan"
+			    pwd
+             '''
                 sh './jenkins2/scripts/deliver.sh'
             }
         }
