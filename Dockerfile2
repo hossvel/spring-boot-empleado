@@ -1,0 +1,6 @@
+FROM maven:3-alpine
+WORKDIR /appmavenjenkins
+ADD . /appmavenjenkins
+COPY target/spring-boot-empleado 0.0.1-SNAPSHOT.jar /appmavenjenkins/app.jar
+EXPOSE 8081
+CMD java -jar /appmavenjenkins/app.jar
