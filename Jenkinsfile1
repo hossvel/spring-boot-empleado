@@ -23,10 +23,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                 sh '''
-                echo "Pasos múltiples de shell también funcionan"
-			    pwd
-             '''
+                 sh 'chmod 777 /jenkins2/scripts/deliver.sh'
                 sh './jenkins2/scripts/deliver.sh'
             }
         }
