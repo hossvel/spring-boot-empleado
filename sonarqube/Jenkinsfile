@@ -39,7 +39,7 @@ pipeline {
                     sonarqubeScannerHome = tool 'sonar'
                  }
                  withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
-                   sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.1.2:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=empleados1 -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=EM1 -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
+                   sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.1.2:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=jenkinsempleados -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=EM -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
                  }
            }
          }

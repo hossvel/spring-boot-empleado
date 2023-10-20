@@ -40,7 +40,7 @@ pipeline {
                    scannerHome = tool 'sonar'
                  }
                  withSonarQubeEnv('sonarserver') {
-                   sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectName=empleadosprueba -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=EM -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
+                   sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectName=jenkinsempleados1 -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=EM1 -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
                  }
            }
         }
