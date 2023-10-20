@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git url: 'https://github.com/hossvel/spring-boot-empleado.git'
+		            echo "Code Checked-out Successfully!!";
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                bat 'mvn package'    
+		            echo "Maven Package Goal Executed Successfully!";
+            }
+        }
+
+	    stage('Sonar Scanner') {
+             def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+             withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
+               sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.1.2:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=gs-gradle -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=complete/src/main/ -Dsonar.tests=complete/src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
+             }
+           }
+
+	    stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+        
+    }
+    post {
+        
+        success {
+            echo 'This will run only if successful'
+        }
+        failure {
+            echo 'This will run only if failed'
+        }
+    
+    }
+}
