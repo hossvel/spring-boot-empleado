@@ -44,9 +44,11 @@ pipeline {
           }
         }
         stage('SonarQube analysis') {
+          steps {
             withSonarQubeEnv(credentialsId: 'squ_2f6a36a41992ed633af4bbc99cb090be27696308', installationName: 'http://192.168.1.2:9000') {
               sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
             }
+          }
         }
     }
 }
