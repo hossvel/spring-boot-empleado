@@ -43,6 +43,16 @@ pipeline {
                  }
            }
          }
+         stage('Docker Build & Push') {
+            steps {
+               script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+                       def appmavenjenkins = docker.build("hhvelascoa/mavenjenkinsempleados:${gitcommit}", ".")
+                       appmavenjenkins.push()
+                    }
+               }
+            }
+         }
 
     }
 }
