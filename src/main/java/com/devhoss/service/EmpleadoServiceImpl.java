@@ -3,7 +3,9 @@ package com.devhoss.service;
 import com.devhoss.exception.ResourceNotFoundException;
 import com.devhoss.model.Empleado;
 import com.devhoss.repository.IEmpleadoRepository;
+import com.devhoss.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,10 @@ public class EmpleadoServiceImpl implements IEmpleadoService{
 
     @Autowired
     private IEmpleadoRepository iempleadoRepository;
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
     @Override
     public List<Empleado> getAllEmpleados() {
         return iempleadoRepository.findAll();
@@ -31,7 +37,14 @@ public class EmpleadoServiceImpl implements IEmpleadoService{
         if(empleadoexiste.isPresent()){
             throw new ResourceNotFoundException("El empleado con ese dni ya existe : " + empleado.getDni());
         }
-        return iempleadoRepository.save(empleado);
+
+
+        Empleado empleadosave = iempleadoRepository.save(empleado);
+
+        //TODO: Send message to order topic
+        kafkaTemplate.send("empleados-topic",empleadosave.getDni(), JsonUtils.toJson(empleadosave) );
+
+        return empleadosave;
     }
 
     @Override
