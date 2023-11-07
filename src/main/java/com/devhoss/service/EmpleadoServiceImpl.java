@@ -42,7 +42,7 @@ public class EmpleadoServiceImpl implements IEmpleadoService{
         Empleado empleadosave = iempleadoRepository.save(empleado);
 
         //TODO: Send message to order topic
-        kafkaTemplate.send("empleados-topic",empleadosave.getDni(), JsonUtils.toJson(empleadosave) );
+       // kafkaTemplate.send("empleados-topic",empleadosave.getDni(), JsonUtils.toJson(empleadosave) );
 
         return empleadosave;
     }
