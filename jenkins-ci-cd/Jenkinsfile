@@ -1,0 +1,24 @@
+pipeline {
+  agent any
+  stages {
+    stage('clone repository') {
+      steps {
+        sh '''java -version
+mvn --version
+git --version'''
+      }
+    }
+
+    stage('Deploy billing App') {
+      steps {
+        withCredentials(bindings: [
+                      string(credentialsId: 'k8s-jenkins-server-account', variable: 'api_token')
+                      ]) {
+            sh 'kubectl --token $api_token --server host.docker.internal:6443 --insecure-skip-tls-verify=true apply -f deployment-empleado-app-back-jenkins.yaml '
+          }
+
+        }
+      }
+
+    }
+  }
