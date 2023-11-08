@@ -8,5 +8,5 @@ kubectl get deployments
 kubectl get services
 
 ## delete
-kubectl delete deployments vfe-hello-wrold
-kubectl delete service vfe-hello-wrold
+kubectl delete deployments empleados-k8s-deployment
+kubectl delete services empleados-k8s-service
