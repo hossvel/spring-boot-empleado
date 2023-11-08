@@ -1,5 +1,5 @@
-FROM maven:3-alpine
-WORKDIR /appmavenjenkins
-ADD . /appmavenjenkins
+FROM openjdk:19-jdk-alpine
+VOLUME /tmp
+COPY ./target/spring-boot-empleado-0.0.1-SNAPSHOT.jar  app.jar
 EXPOSE 8081
-CMD jenkins/scripts/deliver.sh
+ENTRYPOINT ["java", "-jar","/app.jar"]
