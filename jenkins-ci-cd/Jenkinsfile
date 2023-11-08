@@ -3,9 +3,7 @@ pipeline {
   stages {
     stage('clone repository') {
       steps {
-        sh '''java -version
-mvn --version
-git --version'''
+        sh 'java -version'
       }
     }
 
