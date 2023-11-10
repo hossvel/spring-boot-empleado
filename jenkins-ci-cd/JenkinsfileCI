@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    environment {
+        gitcommit = "${gitcommit}"
+    }
+    tools {
+        maven 'mavenjenkins'
+    }
+
+    stages {
+
+        stage('Verificación SCM') {
+          steps {
+            script {
+              checkout scm
+              sh "git rev-parse --short HEAD > .git/commit-id"
+              gitcommit = readFile('.git/commit-id').trim()
+            }
+          }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+         stage('Sonar Scanner') {
+           steps {
+                 script {
+                    sonarqubeScannerHome = tool 'sonar'
+                 }
+                 withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
+                   sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.1.3:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=jenkinsempleados -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=EM -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
+                 }
+           }
+         }
+         stage('Docker Build & Push') {
+            steps {
+               script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+                       def appmavenjenkins = docker.build("hhvelascoa/appempleados:${env.BUILD_NUMBER}", ".")
+                           appmavenjenkins.push("latest")
+                           appmavenjenkins.push()
+                    }
+               }
+            }
+         }
+
+    }
+}
