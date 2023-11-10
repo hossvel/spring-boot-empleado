@@ -12,7 +12,7 @@ pipeline {
         withCredentials(bindings: [
                       string(credentialsId: 'k8s-jenkins-server-account1', variable: 'api_token')
                       ]) {
-            sh 'kubectl --token $api_token --server https://kubernetes.docker.internal:6443 --insecure-skip-tls-verify=true apply -f jenkins-ci-cd/deploy-service-empleado1.yaml'
+            sh 'kubectl --token $api_token --server https://kubernetes.docker.internal:6443 --insecure-skip-tls-verify=true apply -f jenkins-ci-cd/deploy-service-empleado.yaml'
           }
 
         }
